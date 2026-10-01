@@ -21,8 +21,8 @@ Deployment: dep-dav29b942hec73cjmmi0 (source commit 436a822).
 Verified: EN/RU homepages, all 8 homepage assets, favicon and manifest match local
 files; unknown URL returns HTTP 404.
 Custom domains newspectrum.org and www.newspectrum.org are attached to the service.
-www redirects to the root domain. Both domains are Waiting for DNS;
-certificates are Waiting for Verification. No DNS changes have been made.
+www redirects to the root domain. Custom-domain HTTPS is now publicly verified.
+The domain owner updated DNS in SAV; live checks on 2026-10-01 passed.
 
 DNS (currently SAV parking nameservers):
 Current root A: 172.234.212.77, 172.236.103.15, 172.239.193.194.
@@ -61,3 +61,14 @@ render.yaml is supplied for a future Blueprint setup; it is not currently linked
 Repository-specific SSH credentials are stored outside the public repository in
 ../.dev/render with private permissions. Never copy that directory into public/.
 The original robots.txt/noindex settings and frontend-only comment form are preserved.
+
+Final custom-domain checks (2026-10-01):
+https://newspectrum.org/ and /ru/ return HTTP 200 and match local HTML exactly.
+CSS, JavaScript, favicon and manifest return HTTP 200 and match local files.
+HTTP redirects to HTTPS (301); www redirects to the apex preserving paths (301).
+Unknown URLs return HTTP 404.
+Trusted Let's Encrypt certificate covers newspectrum.org and *.newspectrum.org;
+expires 2026-12-30 08:38:33 UTC. Render manages automatic TLS renewal.
+Actual DNS: apex A 216.24.57.1; www CNAME newspectrum.org; no AAAA record.
+Authoritative NS: augustus.ns.cloudflare.com and laura.ns.cloudflare.com.
+The actual www CNAME chain works; no further DNS change is necessary.
