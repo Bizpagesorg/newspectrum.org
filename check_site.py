@@ -52,3 +52,33 @@ for file in ROOT.rglob('*'):
 if errors:
     raise SystemExit('\n'.join(errors))
 print(f'OK: {len(pages)} HTML pages; {count} local links, assets and sitemap entries; no broken references.')
+
+from urllib.robotparser import RobotFileParser
+policy = RobotFileParser()
+policy.parse((ROOT / 'robots.txt').read_text().splitlines())
+assert 'Sitemap: https://newspectrum.org/sitemap.xml' in (ROOT / 'robots.txt').read_text()
+class RobotsMeta(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.directives = []
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'meta' and attrs.get('name', '').lower() in ('robots', 'googlebot', 'bingbot', 'yandex'):
+            self.directives += re.split(r'[\s,]+', attrs.get('content', '').lower())
+for source in pages:
+    if source.name == '404.html':
+        continue
+    meta = RobotsMeta()
+    meta.feed(source.read_text())
+    assert not {'noindex', 'nofollow', 'none'} & set(meta.directives), f'Blocked indexing: {source}'
+    path = '/' + str(source.relative_to(ROOT)).removesuffix('index.html')
+    assert all(policy.can_fetch(bot, path) for bot in ('Googlebot', 'bingbot', 'YandexBot')), path
+for location in ET.parse(ROOT / 'sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
+    assert location.text.startswith('https://newspectrum.org/')
+    assert not location.text.endswith('404.html')
+rules = [line.split() for line in (ROOT / '_redirects').read_text().splitlines() if line and not line.startswith('#')]
+for source, target, status in rules:
+    assert source.startswith('/') and source != '/' and '*' not in source
+    assert target == '/' and status == '301'
+    assert not (ROOT / source.lstrip('/')).exists(), source
+print(f'OK: {len(pages)-2} indexable pages; sitemap excludes 404; {len(rules)} legacy redirects without conflicts.')

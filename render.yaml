@@ -1,11 +1,24 @@
 services:
-  - type: web
-    name: newspectrum-org
-    runtime: static
-    branch: main
-    buildCommand: python3 check_site.py
-    staticPublishPath: ./public
-    autoDeployTrigger: commit
-    domains:
-      - newspectrum.org
-      - www.newspectrum.org
+- type: web
+  name: newspectrum-org
+  runtime: static
+  branch: main
+  buildCommand: python3 check_site.py
+  staticPublishPath: ./public
+  autoDeployTrigger: commit
+  domains:
+  - newspectrum.org
+  - www.newspectrum.org
+  routes:
+  - type: redirect
+    source: /activities
+    destination: /
+  - type: redirect
+    source: /activities/
+    destination: /
+  - type: redirect
+    source: /blog/2011/08/24/the-nono-muchmore-warped-festival
+    destination: /
+  - type: redirect
+    source: /blog/2011/08/24/the-nono-muchmore-warped-festival/
+    destination: /

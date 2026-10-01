@@ -60,7 +60,7 @@ render.yaml is supplied for a future Blueprint setup; it is not currently linked
 
 Repository-specific SSH credentials are stored outside the public repository in
 ../.dev/render with private permissions. Never copy that directory into public/.
-The original robots.txt/noindex settings and frontend-only comment form are preserved.
+The frontend-only comment form is preserved. Search indexing is now enabled as described below.
 
 Final custom-domain checks (2026-10-01):
 https://newspectrum.org/ and /ru/ return HTTP 200 and match local HTML exactly.
@@ -72,3 +72,17 @@ expires 2026-12-30 08:38:33 UTC. Render manages automatic TLS renewal.
 Actual DNS: apex A 216.24.57.1; www CNAME newspectrum.org; no AAAA record.
 Authoritative NS: augustus.ns.cloudflare.com and laura.ns.cloudflare.com.
 The actual www CNAME chain works; no further DNS change is necessary.
+
+Legacy redirects and indexing (2026-10-01):
+- Source report: ../.dev/redirects/backlinks-report.csv (two legacy URLs).
+- Generator: ../.dev/redirects/generate.py, called automatically by ../.dev/render/build.py.
+- Four exact 301 rules (with and without trailing slashes) redirect to /.
+- Local _redirects and render.yaml routes are generated from the same CSV.
+- Render dashboard rules must be synchronized separately; render.yaml is not linked
+  as a Blueprint for this existing service.
+- Local preview with redirects, from the site root:
+    python3 render-site/serve.py --directory . --port 8000
+- robots.txt permits crawling and advertises https://newspectrum.org/sitemap.xml.
+- All 301 ordinary EN/RU pages use index, follow; two 404 pages keep noindex, follow.
+- Sitemap excludes 404 pages. The source site generator preserves this policy.
+- check_site.py rejects accidental noindex/nofollow or a blanket robots block.
