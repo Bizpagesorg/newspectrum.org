@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-label="Newspectrum logo option 4: spectrum sunrise over a business skyline">
+  <g>
+    <g stroke-width="7" stroke-linecap="round">
+      <line x1="110" y1="52" x2="110" y2="26" stroke="#7c3aed"/>
+      <line x1="146" y1="64" x2="166" y2="44" stroke="#2563eb"/>
+      <line x1="74" y1="64" x2="54" y2="44" stroke="#06b6d4"/>
+      <line x1="170" y1="98" x2="196" y2="92" stroke="#16a34a"/>
+      <line x1="50" y1="98" x2="24" y2="92" stroke="#f59e0b"/>
+    </g>
+    <path d="M62 132 A48 48 0 0 1 158 132 Z" fill="#ef4444"/>
+    <g fill="#16182b">
+      <rect x="18" y="132" width="24" height="44"/>
+      <rect x="46" y="150" width="18" height="26"/>
+      <rect x="156" y="142" width="20" height="34"/>
+      <rect x="180" y="128" width="16" height="48"/>
+      <rect x="68" y="158" width="14" height="18"/>
+      <rect x="138" y="160" width="14" height="16"/>
+    </g>
+    <rect x="14" y="176" width="186" height="7" fill="#16182b"/>
+  </g>
+  <g>
+    <text x="250" y="106" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="50" fill="#16182b" letter-spacing="-1">NEWSPECTRUM<tspan font-size="22" fill="#4a4d66">.ORG</tspan></text>
+    <text x="252" y="146" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#4a4d66">a new day for business news</text>
+    <rect x="252" y="160" width="380" height="7" rx="3.5" fill="none"/>
+    <rect x="252" y="160" width="64" height="7" fill="#7c3aed"/><rect x="316" y="160" width="64" height="7" fill="#2563eb"/><rect x="380" y="160" width="64" height="7" fill="#06b6d4"/><rect x="444" y="160" width="64" height="7" fill="#16a34a"/><rect x="508" y="160" width="62" height="7" fill="#f59e0b"/><rect x="570" y="160" width="62" height="7" fill="#ef4444"/>
+  </g>
+</svg>

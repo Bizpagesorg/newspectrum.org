@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: newspectrum-org
+    runtime: static
+    branch: main
+    buildCommand: python3 check_site.py
+    staticPublishPath: ./public
+    autoDeployTrigger: commit
+    domains:
+      - newspectrum.org
+      - www.newspectrum.org

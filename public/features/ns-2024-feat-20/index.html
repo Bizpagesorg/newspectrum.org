@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Night the .ru Zone Went Quiet: What Russia's January DNS Failure Revealed About the Internet's Deepest Layer — newspectrum.org</title>
+<meta name="description" content="On January 30, 2024, .ru websites across Russia stopped opening; a DNSSEC infrastructure fault, a day-long fix and a three-week probe followed.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" hreflang="en" href="https://newspectrum.org/features/ns-2024-feat-20/">
+<link rel="alternate" hreflang="ru" href="https://newspectrum.org/ru/features/ns-2024-feat-20/">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="spectrum-hairline" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="shell masthead">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/images/logo.svg" alt="newspectrum.org" width="248" height="60">
+      <span class="brand-sub">The full spectrum of business news</span>
+    </a>
+    <div class="lang">
+  <button class="lang-toggle" type="button" aria-expanded="false" aria-haspopup="true">
+    <svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0l60 40M60 0L0 40" stroke="#fff" stroke-width="7"/><path d="M0 0l60 40M60 0L0 40" stroke="#C8102E" stroke-width="4"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="10"/><path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="6"/></svg><span>EN</span><span class="caret" aria-hidden="true"></span>
+  </button>
+  <div class="lang-menu" role="menu">
+    <a role="menuitem" href="/features/ns-2024-feat-20/" aria-current="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0l60 40M60 0L0 40" stroke="#fff" stroke-width="7"/><path d="M0 0l60 40M60 0L0 40" stroke="#C8102E" stroke-width="4"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="10"/><path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="6"/></svg> English</a>
+    <a role="menuitem" href="/ru/features/ns-2024-feat-20/" aria-current="false"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="13.3" fill="#fff"/><rect y="13.3" width="60" height="13.4" fill="#0039A6"/><rect y="26.7" width="60" height="13.3" fill="#D52B1E"/></svg> Русский</a>
+  </div>
+</div>
+  </div>
+  <nav class="primary-nav" aria-label="Sections"><div class="shell"><ul><li><a class="nav-enterprises" href="/enterprises/"><span class="dot" aria-hidden="true"></span>Enterprises</a></li><li><a class="nav-banks" href="/banks/"><span class="dot" aria-hidden="true"></span>Banks</a></li><li><a class="nav-management" href="/management/"><span class="dot" aria-hidden="true"></span>Management</a></li><li><a class="nav-b2c" href="/b2c/"><span class="dot" aria-hidden="true"></span>B2C</a></li><li><a class="nav-economics" href="/economics/"><span class="dot" aria-hidden="true"></span>Economics</a></li><li><a class="nav-global" href="/global/"><span class="dot" aria-hidden="true"></span>Global</a></li></ul></div></nav>
+</header>
+<main id="main">
+<div class="shell article-head">
+  <span class="kicker" style="color:var(--sp1)">Features · Enterprises</span>
+  <h1>The Night the .ru Zone Went Quiet: What Russia's January DNS Failure Revealed About the Internet's Deepest Layer</h1>
+  <span class="meta"><span class="date-chip">Published: Jan 31, 2024</span></span>
+</div>
+<figure class="article-cover shell">
+  <img src="/images/stories/ns-2024-feat-20-cover-photo.webp" alt="National domain name infrastructure of the .ru zone during a country-wide resolution outage" width="1200" height="675" decoding="async">
+  <figcaption>National domain name infrastructure of the .ru zone during a country-wide resolution outage</figcaption>
+</figure>
+<div class="prose shell">
+<p class="standfirst">On the evening of January 30, 2024, users in <a class="intextlink" href="http://bizpages.org/countries--RU--Russia" rel="noopener" target="_blank">Russia</a>'s largest cities discovered that the most ordinary layer of the national internet had stopped answering: websites and applications in the .ru domain zone would not open through mobile operators and fixed-line providers. Monitoring services recorded malfunctions at some of the country's most visited resources, and within a day the Ministry of Digital Development, Communications and Mass Media declared the cause fixed. Three weeks later the minister closed the file with a blunt verdict: a strictly technical problem, with no sign of external interference. Between those two statements lies one of the clearest public demonstrations of how much of a national internet rests on a single globally shared mechanism — the cryptographic signing of domain data known as DNSSEC.</p>
+<h2>The evening the addresses stopped resolving</h2>
+<p>The first signals were ordinary user complaints, amplified by media reports in the evening of January 30: in big Russian cities, mobile operators and providers experienced a failure that prevented websites and applications in the .ru domain zone from opening. Nothing about individual networks looked broken; what failed was the step that precedes any connection — turning a human-readable domain name into the address a network can route to.</p>
+<p>The scale became visible through monitoring. According to the Downradar service, malfunctions were recorded in particular on the websites of Yandex, MTS, Megafon, Beeline, Ozon, Avito, Wildberries and Kinopoisk, among others. That list is effectively a map of the Russian consumer internet: search, marketplaces, telecom self-service, classifieds and video. When the resolution layer stumbles, every one of those businesses stumbles with it, regardless of how healthy its own servers are.</p>
+<p>The operators themselves were quick to draw the boundary between their networks and the zone. Megafon told Interfax that it had recorded a decline in traffic in the Russian segment of the internet, but stressed that the problem was not with the Megafon network and that its network was working normally. The VimpelCom press service said the Beeline network was working normally and that possible failures in the operation of certain web resources were not within Beeline's purview. Both statements describe the same architecture from inside: access providers carry traffic, but they do not own the address book that traffic depends on.</p>
+<h2>What actually failed: DNS and its security layer</h2>
+<p>To understand the incident, it helps to separate two layers that users experience as one. The domain name system, DNS, is a computer distributed system for obtaining domain data: a planetary hierarchy of servers that translates names into addresses. DNSSEC is a set of extensions to the DNS protocol that helps minimize attacks related to DNS address spoofing when resolving domain names. It provides DNS clients with authentic responses to DNS queries when authenticating web resources on the internet, ensures their integrity and prevents IP address spoofing. In short, DNS answers the question "where is this name?", while DNSSEC adds the guarantee "and this answer is genuinely from the zone that owns the name".</p>
+<p>The ministry's first explanation placed the failure precisely in that second layer. It said problems with the accessibility of RU zone websites and services were linked to the global protocol infrastructure of the DNSSEC domain name system — the set of extensions to the DNS protocol that ensures the integrity and reliability of data. This is not a local router problem or a provider outage; it is a problem in the trust machinery that lets the rest of the world accept the .ru zone's answers as authentic.</p>
+<h3>A signature file signed into the global system</h3>
+<p>The most concrete technical description came a few days later from the .ru/.rf domain coordination center: the glitch in the .ru domain zone resulted from incorrect operation of the software that implements a mechanism for signing a file with .ru zone data into the global system of DNS servers. Read carefully, that sentence describes a production process. The zone's data is packaged into a file, that file is signed, and the signed result is published into the global system so that resolvers everywhere can verify it. When the signing software misbehaves, the published proof of authenticity no longer matches what, and resolvers that enforce DNSSEC validation stop trusting answers they would otherwise have served.</p>
+<p>This is why the incident looked the way it did from the outside: not a slow website, not a regional blackout, but a zone-wide refusal to resolve for users whose resolvers validate signatures. The failure mode belongs to the security layer, not to the transport layer, and that distinction shaped everything that followed — the fix, the tail, and the division of responsibility among the institutions involved.</p>
+<h2>The fix and the propagation tail</h2><figure class="article-figure"><img src="/images/stories/ns-2024-feat-20-servers.svg" alt="Server racks of the national .ru domain infrastructure during the January 2024 DNS outage" loading="lazy"><figcaption>Server racks of the national .ru domain infrastructure during the January 2024 DNS outage</figcaption></figure>
+<p>By January 31 the Ministry of Digital Development, Communications and Mass Media announced that the technical problem related to the DNSSEC global infrastructure, which had caused the inaccessibility of RU zone websites, had been fixed. It added a caveat that matters to anyone who has operated a distributed system: issues with DNS operation may persist for some time until the updated data is distributed throughout the domain name system.</p>
+<p>That caveat is the operational heart of the story. In a distributed system, a fix is not an event but a wave. Corrected data has to travel through caches and resolvers that hold earlier answers for their configured lifetimes, and until the wave completes, some users see the repaired zone while others still see the broken one. The ministry's wording — fixed, but issues may persist — is an accurate description of propagation, and it explains why user reports did not stop the moment the announcement was made.</p>
+<p>For the businesses on Downradar's list, the practical consequence was an outage measured not in their own uptime but in the resolution path: a marketplace can keep every server healthy and still be unreachable for users whose resolvers hold stale or unverifiable answers. The January 30 episode turned that abstract dependency into a customer-visible event across the Russian internet in a single evening.</p>
+<h2>A chronology of one evening and one wave</h2>
+<p>Set side by side, the public record forms a compact chronology. On the evening of January 30, media citing users in big cities report that .ru websites and applications fail to open through operators and providers. On January 31, the ministry announces that the DNSSEC-related technical problem has been fixed, warning that DNS issues may persist until updated data distributes. Within the following days, the .ru/.rf coordination center attributes the glitch to incorrect operation of the software that signs the zone file into the global system of DNS servers. On February 20, Minister Maksut Shadayev reports that the probe found a strictly technical problem and no external interference. Four dates, one incident, and a complete arc from user complaint to formal closure.</p>
+<p>The chronology also shows where time went. The fix itself was fast; the explanation matured in stages, from a protocol-infrastructure attribution to a named software mechanism to a probe conclusion. For communication teams the pattern is instructive: the first honest statement describes the layer, the second names the mechanism, the third closes the file. Skipping steps would have produced confident statements the evidence did not yet support.</p>
+<h2>Who owns which layer</h2>
+<p>The incident also exposed how many institutions sit between a user's query and a working website, and how their responsibilities interlock. The Federal Service for Supervision of Communications, Information Technology and Mass Media, Roskomnadzor, responded to a question from Interfax by pointing elsewhere: managing the RU domain zone is a function within the area of responsibility of the Internet Technical Center. At the same time Roskomnadzor reported that access providers and owners of autonomous systems that use resolving of the National Domain Name System of the Network Monitoring and Management Center were operating normally, and that the NMMC had sent respective recommendations to the owners of all autonomous systems within the RU zone.</p>
+<p>Three details in that paragraph deserve attention. First, the regulator of communications explicitly does not manage the zone; zone management belongs to the technical center. Second, a parallel resolution path exists — the National Domain Name System operated by the NMMC — and users whose providers resolve through it were not affected in the same way. Third, the remediation channel ran through recommendations to autonomous system owners, the entities that operate routing domains at the edge of the national internet, rather than through a single switch that could be flipped centrally.</p>
+<p>The picture that emerges is a layered governance map: a ministry that explains and coordinates, a communications regulator that supervises but defers zone management, a coordination center that runs the zone's signing production, a technical center that manages the zone, and a monitoring center whose national resolution system offers an alternative path. None of these layers failed individually in a way that users could see; the failure appeared exactly at the seam where the zone's signed data meets the global system.</p>
+<h2>Operators caught in the middle</h2>
+<p>For telecom operators, the episode was a reminder of an uncomfortable position. They are the first institution users blame when a website does not open, yet the January 30 failure originated outside their networks, in the zone's signing and validation chain. Megafon's formulation — traffic declined, our network is normal — is the operator's version of that boundary, and VimpelCom's statement that failures of certain web resources are not within Beeline's purview draws the same line more sharply.</p>
+<p>Tellingly, there was also what the operators did not say: none of them declared the zone failure its own incident or promised compensation for unreachable external resources. That restraint is legally precise and commercially imprecise: subscribers do not distinguish internet layers and remember an evening when nothing opened as an evening of a particular operator. The gap between the technical boundary of responsibility and user perception is a standing cost telecom brands pay in incidents of this kind.</p>
+<ul>
+<li>Access providers carry traffic but do not own the zone data their customers' queries depend on.</li>
+<li>Providers resolving through the national system of the NMMC kept working normally, according to Roskomnadzor.</li>
+<li>Recommendations, not orders, were the remediation channel to autonomous system owners inside the RU zone.</li>
+<li>Content and commerce platforms — marketplaces, video, classifieds — absorbed the customer impact without any fault in their own infrastructure.</li>
+</ul>
+<p>That list is also a checklist for the next incident: where resolution happens, which path a given provider uses, and who receives recommendations when the signed zone misbehaves.</p>
+<h2>Three weeks to close the file</h2>
+<p>The technical explanation arrived quickly; the formal closure took three weeks. On February 20, Russian Minister of Digital Development, Communication and Mass Media Maksut Shadayev told reporters that a probe of the glitch in the .ru domain zone had proven the absence of external interference: the probe shows that it was a strictly technical problem and no sign of an external interference was found. Combined with the coordination center's earlier description of malfunctioning signing software, the official record of the incident is complete and consistent: a software fault in the signing mechanism, a fix within a day, a propagation tail, and no adversary.</p>
+<p>The value of that closure is not only reputational. In an environment where internet incidents are routinely interpreted through a security lens, a ministerial statement that a probe found no external interference converts a frightening evening into a maintainable engineering problem. It also sets the boundary for the lessons: this was not an attack to be deterred but a production process to be hardened.</p>
+<h2>What the outage measured</h2>
+<p>Incidents like this one are rare opportunities to measure dependencies that are otherwise invisible. The January 30 failure measured several at once.</p>
+<ul>
+<li>Concentration: a single signing mechanism stands between the .ru zone and global validation; its software fault was sufficient to make the zone unresolvable for validating users.</li>
+<li>Propagation as recovery time: the fix was declared on January 31, yet the ministry warned that DNS issues may persist until updated data distributed — recovery is a wave, not a switch.</li>
+<li>Parallel paths: the national resolution system of the NMMC kept access providers operating normally, showing that an alternative validation path changes user impact.</li>
+<li>Attribution asymmetry: operators and platforms absorbed blame and traffic loss for a fault in infrastructure none of them operates.</li>
+<li>Governance seams: responsibility is distributed across ministry, regulator, coordination center, technical center and monitoring center, and the incident traveled exactly along those seams.</li>
+</ul>
+<p>None of these measurements requires speculation; each is visible in the official statements and in the monitoring data cited during the incident. Together they describe a national internet whose user-facing resilience depends on a globally shared trust mechanism operated through a domestic production chain.</p>
+<h2>Outlook: what would change the picture</h2>
+<p>The practical agenda that follows from the incident is engineering rather than political. Signing software is production software: it needs the same discipline as any system whose output the world consumes — staged rollouts, validation of signed output before publication, and fast, well-communicated rollback. Propagation deserves explicit planning, because the tail between "fixed" and "everywhere fixed" is where users keep complaining and support desks keep escalating. And the existence of a national resolution path raises a standing question for providers: which resolvers do our customers actually use, and what happens to them if the global validation chain misbehaves again?</p>
+<p>For the businesses that sat on Downradar's list on the evening of January 30, the lesson is narrower and more commercial: resolution risk belongs in the same continuity planning as data centers and payment gateways, because it can erase availability without touching a single server they own. For the institutions that run the zone, the lesson is about the seam: the file, the signature and the global system must be treated as one production line, because that is exactly how they failed — and exactly how they will be trusted again.</p>
+<p>One more discipline follows from the propagation tail: incident communication should describe states, not moments. "Fixed" and "fully propagated" are different claims, and the ministry's January 31 wording kept them separate. Support desks, status pages and partner notifications that preserve the same distinction spare themselves a second wave of tickets when the tail outlives the headline.</p>
+<p>The January 2024 episode ended without an adversary and without lasting damage, which is the best available outcome for a failure of this kind. What it leaves behind is a precise map of where the national internet is strongest and where it is thinnest: strong in networks, platforms and parallel resolution paths, thin at the single point where a signed file meets the global system of DNS servers. The next time that seam moves, the map drawn on the evening of January 30 will be the first document engineers reach for.</p>
+<section class="comment-block">
+  <h2>Leave a comment</h2>
+  <form class="comment-form" data-lang="en">
+    <label>Name<input name="name" required></label>
+    <label>Email<input name="email" type="email" required></label>
+    <label>Website<input name="website" type="url"></label>
+    <label>Comment<textarea name="comment" required></textarea></label>
+    <button type="submit">Save comment</button>
+  </form>
+</section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <img src="/images/logo-icon.svg" alt="newspectrum.org" width="44" height="44">
+      <p>Independent bilingual coverage of business, economics and finance.</p>
+      <small>New Spectrum Foundation LLC · <a href="mailto:info@newspectrum.org" style="color:#8fb7ff">info@newspectrum.org</a></small>
+    </div>
+    <nav aria-label="Materials"><h4>Materials</h4><ul><li><a href="/features/">Features</a></li><li><a href="/radar/">Radar</a></li><li><a href="/business-notes/">Business Notes</a></li></ul></nav>
+    <nav aria-label="Sections"><h4>Sections</h4><ul><li><a href="/enterprises/">Enterprises</a></li><li><a href="/banks/">Banks</a></li><li><a href="/management/">Management</a></li><li><a href="/b2c/">B2C</a></li><li><a href="/economics/">Economics</a></li><li><a href="/global/">Global</a></li></ul></nav>
+    <nav aria-label="About"><h4>About</h4><ul><li><a href="/publishing-policy/">Publishing Policy</a></li><li><a href="/become-an-author/">Become an Author</a></li><li><a href="/talk-to-us/">Talk to Us</a></li><li><a href="/data-privacy/">Data & Privacy</a></li><li><a href="/terms-conditions/">Terms & Conditions</a></li></ul></nav>
+  </div>
+  <div class="shell copyright"><span>© 2024–2026 New Spectrum Foundation LLC. All rights reserved.</span><span>USA</span></div>
+</footer>
+<script src="/js/main.js"></script>
+<script src="/js/comments.js"></script>
+</body>
+</html>
