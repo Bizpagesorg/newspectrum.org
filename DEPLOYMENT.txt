@@ -13,30 +13,38 @@ Branch: main
 Build command: python3 check_site.py
 Publish directory: public
 
-Status 2026-10-01: GitHub upload complete; Render creation blocked by account
-identity verification. Render returned need_payment_info and asked the account
-owner to add a card (temporary $1 authorization, described as no charge).
-No Render service URL has been assigned or verified. No custom domain is attached.
-No DNS changes have been made.
-
-After identity verification:
-1. Create the Static Site with the settings above.
-2. Wait for successful deployment and check EN/RU pages and assets.
-3. Add newspectrum.org in Settings > Custom Domains. Render automatically adds
-   www.newspectrum.org and redirects it to the root domain.
-4. Record the actual assigned onrender.com hostname and configure DNS.
-5. Verify the domain and TLS certificate after DNS propagation.
+Status 2026-10-01: Render deployment successful and publicly verified.
+Render service ID: srv-dav29ap42hec73cjmlcg
+Dashboard: https://dashboard.render.com/static/srv-dav29ap42hec73cjmlcg/settings
+Live test URL: https://newspectrum-org.onrender.com
+Deployment: dep-dav29b942hec73cjmmi0 (source commit 436a822).
+Verified: EN/RU homepages, all 8 homepage assets, favicon and manifest match local
+files; unknown URL returns HTTP 404.
+Custom domains newspectrum.org and www.newspectrum.org are attached to the service.
+www redirects to the root domain. Both domains are Waiting for DNS;
+certificates are Waiting for Verification. No DNS changes have been made.
 
 DNS (currently SAV parking nameservers):
 Current root A: 172.234.212.77, 172.236.103.15, 172.239.193.194.
-For an ordinary DNS provider, replace these with @ A 216.24.57.1.
-Set www CNAME to the ACTUAL assigned Render service hostname once it is created.
-For Cloudflare DNS, use CNAME @ and CNAME www to that actual hostname,
-with DNS only (gray cloud) during verification. Remove conflicting parking A
-records and any AAAA records. Preserve mail and unrelated records.
-No CAA records currently exist; no CAA additions are required.
-Render automatically issues and renews TLS certificates after domain verification.
-Do not change DNS before the Render service and domain binding exist.
+For an ordinary DNS provider, replace those parking A records with:
+  @    A       216.24.57.1
+  www  CNAME   newspectrum-org.onrender.com
+TTL: 300 or provider default.
+For Cloudflare DNS instead use:
+  @    CNAME   newspectrum-org.onrender.com  DNS only
+  www  CNAME   newspectrum-org.onrender.com  DNS only
+Remove conflicting parking A records and any AAAA records.
+Preserve mail and unrelated records. No CAA records currently exist.
+If SAV parking nameservers do not support custom records, configure editable DNS
+hosting and change nameservers to the values assigned by that provider.
+
+Once DNS propagates, verify both domains in Render Settings > Custom Domains.
+Render automatically issues and renews TLS certificates after verification.
+Check https://newspectrum.org, www redirect, HTTP->HTTPS and nested EN/RU pages.
+References:
+https://render.com/docs/configure-other-dns
+https://render.com/docs/configure-cloudflare-dns
+https://render.com/docs/custom-domains
 
 Updates:
   cd /home/edmart/sites/www/newspectrum.org
