@@ -1,0 +1,55 @@
+Newspectrum — Render deployment
+
+Repository: https://github.com/Bizpagesorg/newspectrum.org
+Local publication repository: /home/edmart/sites/www/newspectrum.org/render-site
+Public files: public/ (550 files, 303 HTML pages, 17,138,595 bytes).
+Local validation passed: 10,972 local HTML/CSS/manifest/sitemap references.
+
+Render settings:
+Service type: Static Site (static hosting)
+Name: newspectrum-org
+Repository: https://github.com/Bizpagesorg/newspectrum.org
+Branch: main
+Build command: python3 check_site.py
+Publish directory: public
+
+Status 2026-10-01: GitHub upload complete; Render creation blocked by account
+identity verification. Render returned need_payment_info and asked the account
+owner to add a card (temporary $1 authorization, described as no charge).
+No Render service URL has been assigned or verified. No custom domain is attached.
+No DNS changes have been made.
+
+After identity verification:
+1. Create the Static Site with the settings above.
+2. Wait for successful deployment and check EN/RU pages and assets.
+3. Add newspectrum.org in Settings > Custom Domains. Render automatically adds
+   www.newspectrum.org and redirects it to the root domain.
+4. Record the actual assigned onrender.com hostname and configure DNS.
+5. Verify the domain and TLS certificate after DNS propagation.
+
+DNS (currently SAV parking nameservers):
+Current root A: 172.234.212.77, 172.236.103.15, 172.239.193.194.
+For an ordinary DNS provider, replace these with @ A 216.24.57.1.
+Set www CNAME to the ACTUAL assigned Render service hostname once it is created.
+For Cloudflare DNS, use CNAME @ and CNAME www to that actual hostname,
+with DNS only (gray cloud) during verification. Remove conflicting parking A
+records and any AAAA records. Preserve mail and unrelated records.
+No CAA records currently exist; no CAA additions are required.
+Render automatically issues and renews TLS certificates after domain verification.
+Do not change DNS before the Render service and domain binding exist.
+
+Updates:
+  cd /home/edmart/sites/www/newspectrum.org
+  python3 .dev/render/build.py
+  python3 render-site/check_site.py
+  cd render-site
+  git add public
+  git commit -m "Update website"
+  git push origin main
+For a manually connected public repository, use Render Manual Deploy after push.
+Auto-deploy requires an appropriate provider connection or Blueprint setup.
+render.yaml is supplied for a future Blueprint setup; it is not currently linked.
+
+Repository-specific SSH credentials are stored outside the public repository in
+../.dev/render with private permissions. Never copy that directory into public/.
+The original robots.txt/noindex settings and frontend-only comment form are preserved.
