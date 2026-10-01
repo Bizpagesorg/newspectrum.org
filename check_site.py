@@ -86,3 +86,5 @@ print(f'OK: {len(pages)-2} indexable pages; sitemap excludes 404; {len(rules)} l
 expected_urls = {'https://newspectrum.org/' + p.relative_to(ROOT).as_posix().removesuffix('index.html') for p in pages if p.name != '404.html'}
 actual_urls = {e.text for e in ET.parse(ROOT / 'sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}
 assert actual_urls == expected_urls, f'Sitemap mismatch: missing {expected_urls - actual_urls}, extra {actual_urls - expected_urls}'
+
+assert not (ROOT / "brand-options").exists(), "Development page must not be published"
