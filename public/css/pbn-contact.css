@@ -1,0 +1,10 @@
+.pbn-contact-panel{box-sizing:border-box;width:100%;max-width:760px;margin:2rem auto;padding:clamp(16px,4vw,32px);border:1px solid currentColor;border-radius:8px;background:var(--paper,#fff);color:var(--ink,#17233a)}
+.pbn-contact-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.pbn-contact-panel label{display:flex;flex-direction:column;gap:8px;font:inherit;min-width:0}
+.pbn-contact-panel input,.pbn-contact-panel textarea{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:12px;border:1px solid #80909f;border-radius:4px;font:inherit;background:#fff;color:#17233a}
+.pbn-contact-panel textarea{resize:vertical}.pbn-contact-wide{grid-column:1/-1}
+.pbn-contact-panel button{margin-top:20px;padding:12px 24px;border:0;border-radius:4px;background:var(--ink,#17233a);color:#fff;font:inherit;cursor:pointer}
+.pbn-contact-panel button:disabled{opacity:.6;cursor:wait}.pbn-contact-panel :focus-visible{outline:3px solid #276ac7;outline-offset:3px}
+.pbn-contact-panel [data-contact-status]{min-height:1.5em;overflow-wrap:anywhere}.pbn-contact-panel [data-state=error]{color:#9a2020}.pbn-contact-panel [data-state=success]{color:#17633b}
+.pbn-contact-trap{position:absolute;left:-10000px}
+@media(max-width:600px){.pbn-contact-fields{grid-template-columns:minmax(0,1fr)}}
